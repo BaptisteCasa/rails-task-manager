@@ -1,0 +1,33 @@
+<h1 class="mb-4 text-primary">My Tasks</h1>
+
+<div class="list-group">
+  <% @tasks.each do |task| %>
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+      <span>
+        <% if task.completed %>
+          <i class="fas fa-check-square text-success"></i>
+        <% else %>
+          <i class="far fa-square text-secondary"></i>
+        <% end %>
+        <%= link_to task.title, task_path(task), class: "ms-2 text-dark fw-bold" %>
+      </span>
+
+      <span>
+        <%= link_to edit_task_path(task), class: "btn btn-warning btn-sm" do %>
+          <i class="fas fa-edit"></i>
+        <% end %>
+
+        <%= form_with model: task, url: task_path(task), method: :delete, class: "d-inline" do %>
+          <%= button_tag type: 'submit', class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        <% end %>
+      </span>
+    </div>
+  <% end %>
+</div>
+
+<div class="mt-4">
+  <%= link_to "➕ Add a new task", new_task_path, class: "btn btn-primary" %>
+</div>
+
